@@ -1,0 +1,85 @@
+nav.navbar.fixed-top+div {
+    margin-top: 72px;
+    min-height: calc(100vh - 144px);
+    margin-bottom: 72px;
+}
+
+.bg-openyard {
+    background-image: url(../img/aspal.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.bg-roofa,
+.bg-roofb,
+.bg-roofc {
+    background-size: contain;
+    background-blend-mode: darken;
+    background-color: rgba(0, 0, 0, 0.2);
+    background-repeat-x: no-repeat;
+}
+
+.bg-roofa {
+    background-image: url(../img/roofa.png);
+}
+
+.bg-roofb {
+    background-image: url(../img/roofb.png);
+}
+
+.bg-roofc {
+    background-image: url(../img/roofc.png);
+}
+
+.btn-roof .btn {
+    background-image: url(../img/roof.png);
+    background-size: contain;
+    width: 40px;
+    height: 60px;
+}
+
+.map-wrapper .openyard.a,
+.map-wrapper .openyard.b,
+.map-wrapper .openyard.c {
+    height: 200px;
+    position: relative;
+}
+
+.map-wrapper .openyard.a,
+.map-wrapper .openyard.b,
+.map-wrapper .openyard.c {
+    width: 500px;
+}
+
+
+/* .map-wrapper .openyard.b {
+    width: 350px;
+} */
+
+.map-wrapper .openyard img {
+    width: inherit;
+    height: inherit;
+}
+
+.map-wrapper .openyard .progress-wrapper {
+    width: inherit;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: -50%;
+    left: 0;
+}
+
+.section-closeyard .btn-group a.btn {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+    .view-edit {
+        margin-bottom: 284px;
+    }
+}
