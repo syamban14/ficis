@@ -80,7 +80,8 @@
         <script src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap5.min.js"></script> -->
         <script src="<?php echo base_url(); ?>assets/DataTables/datatables.min.js"></script>
         <!-- Bootstrap Select JS Plugin -->
-        <script src="<?php echo base_url(); ?>assets/js/bootstrap-select.min.js"></script>
+        <!-- <script src="<?php echo base_url(); ?>assets/js/bootstrap-select.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta3/js/bootstrap-select.min.js" integrity="sha512-yrOmjPdp8qH8hgLfWpSFhC/+R9Cj9USL8uJxYIveJZGAiedxyIxwNw4RsLDlcjNlIRR4kkHaDHSmNHAkxFTmgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script src="<?php echo base_url(); ?>assets/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
     </body>

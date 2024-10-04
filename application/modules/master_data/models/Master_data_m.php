@@ -403,12 +403,24 @@
         {
             return $this->db->query("SELECT * FROM m_bank ");
         }
-        public function add_bank($bank_name, $bank_account)
+        public function add_bank($bank_name, $bank_account, $status)
         {
-            return $this->db->query("INSERT m_bank SET bank_name='$bank_name', bank_account='$bank_account'");
+            $statusnya = '';
+            if ($status=='on') {
+                $statusnya = '1';
+            }else{
+                $statusnya = '0';
+            }
+            return $this->db->query("INSERT m_bank SET bank_name='$bank_name', bank_account='$bank_account', status='$statusnya'");
         }
-        public function edit_bank($id, $bank_name, $bank_account){
-            return $this->db->query("UPDATE m_bank SET bank_name='$bank_name', bank_account='$bank_account' WHERE id='$id'");
+        public function edit_bank($id, $bank_name, $bank_account, $status){
+            $statusnya = '';
+            if ($status=='on') {
+                $statusnya = '1';
+            }else{
+                $statusnya = '0';
+            }
+            return $this->db->query("UPDATE m_bank SET bank_name='$bank_name', bank_account='$bank_account', status='$statusnya' WHERE id='$id'");
         }
         public function delete_bank($id){          
             return $this->db->query("DELETE FROM m_bank WHERE id='$id'");

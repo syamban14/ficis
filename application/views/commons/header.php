@@ -21,7 +21,8 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/DataTables/datatables.min.css">
 
         <!-- Bootstrap-select plugin -->
-        <link href="<?php echo base_url(); ?>assets/css/bootstrap-select.min.css" rel="stylesheet" type="text/css">
+        <!-- <link href="<?php echo base_url(); ?>assets/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta3/css/bootstrap-select.min.css" integrity="sha512-g2SduJKxa4Lbn3GW+Q7rNz+pKP9AWMR++Ta8fgwsZRCUsawjPvF/BxSMkGS61VsR9yinGoEgrHPGPn2mrj8+4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <link rel="stylesheet" href="<?php echo base_url();?>assets/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
         <link rel="stylesheet" href="<?php echo base_url();?>assets/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
@@ -81,7 +82,7 @@
                         <li class="nav-item d-flex align-items-center mb-2 mb-lg-0 me-lg-2">
                             <span class="navbar-text" id="time"></span>
                         </li>
-                        <li class="nav-item mb-2 mb-lg-0 me-lg-2">
+                        <!-- <li class="nav-item mb-2 mb-lg-0 me-lg-2">
                             <div class="dropdown">
                                 <a class="nav-link btn btn-primary text-white position-relative" href="#" role="button" id="dropdownMenuNotif" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-bell"></i> Reminder <span class="badge bg-danger">4</span>
@@ -90,7 +91,7 @@
                                     <div class="dropdown-content p-3">Test aja ini mah yah</div>
                                 </div>
                             </div>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class="btn btn-danger nav-link text-white" data-bs-toggle="modal" href="#modalLogout"><i class="bi bi-box-arrow-right"></i> Logout</a>
                         </li>

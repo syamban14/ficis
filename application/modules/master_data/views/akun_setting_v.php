@@ -242,7 +242,18 @@
 		  return new bootstrap.Tooltip(tooltipTriggerEl);
 		});
 
-		$('#data_akun').DataTable();
+		$('#data_akun').DataTable({
+			dom: "<'row border rounded'<'col-sm-12 col-md-4 p-2'B><'col-sm-12 col-md-4 p-2 text-center'l><'col-sm-12 col-md-4 p-2'f>>" +
+		         "<'row'<'col-sm-12'tr>>" +
+		         "<'row'<'col-sm-12 col-md-6 pe-0'i><'col-sm-12 col-md-6 ps-0'p>>",
+   			buttons: [
+   				{ extend:'colvis', text:'<i class="fas fa-columns"></i>', className:'btn btn-sm btn-outline-primary bg-white text-primary'},
+   				{ extend:'copy', text:'<i class="far fa-copy"></i> Copy', className:'btn btn-sm btn-outline-primary bg-white text-primary' },
+   				{ extend:'excel', text:'<i class="far fa-file-excel"></i> Excel', className:'btn btn-sm btn-outline-primary bg-white text-primary' },
+   				{ extend:'print', text:'<i class="fas fa-print"></i> Print', className:'btn btn-sm btn-outline-primary bg-white text-primary' }
+   			],
+   			colReorder: true
+		});
 
 		$('#selek').change(function() {
 			var link = $('#selek').val();

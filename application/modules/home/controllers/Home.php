@@ -12,6 +12,7 @@
 
 		public function index(){
 			$x['dataInv'] = $this->Home_m->getInvoicePenjualan();
+			$x['dataAp'] = $this->Home_m->getPurchaseInvoice();
 			$x['dataHistory'] = $this->Home_m->getHistory();
 			$this->load->view('commons/header');
 			if ($this->session->userdata('grup')=='1') {
@@ -27,11 +28,12 @@
 			$html = '<table class="table table-bordered table-sm">
 					 	<tr>
 					 		<th>No.</th>
-					 		<th>Deskripsi pesanan</th>
 					 		<th>Department</th>
 					 		<th>Project</th>
 					 		<th>Akun pendapatan</th>
 					 		<th>Akun piutang</th>
+					 		<th>ID Cust. DN</th>
+					 		<th>Deskripsi pesanan</th>
 					 		<th>Satuan</th>
 					 		<th>Jumlah</th>
 					 		<th>Harga</th>
@@ -44,11 +46,12 @@
 			foreach ($data->result() as $x) {
 				$html .= '<tr>
 							<td>'.$i.'</td>
-							<td>'.$x->deskripsi_pesanan.'</td>
 							<td>'.$x->dept_name.'</td>
 							<td>'.$x->project.' '.$x->dept_name.'</td>
 							<td>'.$x->akun_pd.'</td>
 							<td>'.$x->akun_pu.'</td>
+							<td>'.$x->id_customer_dn.'</td>
+							<td>'.$x->deskripsi_pesanan.'</td>
 							<td>'.$x->satuan.'</td>
 							<td>'.$x->jumlah.'</td>
 							<td align="right">Rp&nbsp;'.number_format($x->harga,2).'</td>
@@ -96,4 +99,40 @@
 			redirect($_SERVER['HTTP_REFERER']);
 		}
  
+		public function get_detail_pur()
+		{
+			$Pnno = $this->input->post('Pnno');
+			$html = '<table class="table table-bordered table-sm">
+					 	<tr>
+					 		<th>No.</th>
+					 		<th>Order Description</th>
+					 		<th>Account</th>
+					 		<th>Received</th>
+					 		<th>Unit</th>
+					 		<th>Unit Price</th>
+					 		<th>Discount</th>
+					 		<th>Tax 1</th>
+					 		<th>Tax 2</th>
+					 		<th>Subtotal</th>
+					 	</tr>';
+			$data = $this->Home_m->get_detail_pur($Pnno);
+			$i = 1;
+			foreach ($data->result() as $x) {
+				$html .= '<tr>
+							<td>'.$i.'</td>
+							<td>'.$x->order_description.'</td>
+							<td>'.$x->account_name.'</td>
+							<td>'.$x->received.'</td>
+							<td>'.$x->unit.'</td>
+							<td align="right">Rp&nbsp;'.number_format($x->unit_price,2).'</td>
+							<td align="right">Rp&nbsp;'.number_format($x->discount,2).'</td>
+							<td align="right">'.$x->tax_one.' %</td>
+							<td align="right">'.$x->tax_two.' %</td>
+							<td align="right">Rp&nbsp;'.number_format($x->total,2).'</td>
+						  </tr>';
+				$i++;
+			}
+			$html .= '</table>';
+			echo $html;
+		}
 	}

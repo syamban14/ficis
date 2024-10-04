@@ -504,7 +504,8 @@
 		{
 			$bank_name	 	= $this->input->post('bank_name');
 			$bank_account 	= $this->input->post('bank_account');
-			$this->Master_data_m->add_bank($bank_name, $bank_account);
+			$status 			= $this->input->post('status');
+			$this->Master_data_m->add_bank($bank_name, $bank_account, $status);
 			$info = '<div class="alert alert-success alert-dismissible fade show border-success shadow-sm" role="alert">
 					 <i class="bi bi-check2-circle"></i> Sukses!, Anda baru saja menambahkan data bank baru.
 					 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -517,7 +518,8 @@
 		   $id 				= $this->input->post('id_edit');
 		   $bank_name	 	= $this->input->post('bank_name_edit');
 		   $bank_account 	= $this->input->post('bank_account_edit');
-		   $this->Master_data_m->edit_bank($id, $bank_name, $bank_account);
+		   $status 			= $this->input->post('status_edit');
+		   $this->Master_data_m->edit_bank($id, $bank_name, $bank_account, $status);
 		   $info = '<div class="alert alert-success alert-dismissible fade show border-success shadow-sm" role="alert">
 					<i class="bi bi-check2-circle"></i> Sukses!, Anda baru saja mengubah data bank.
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

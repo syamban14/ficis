@@ -15,203 +15,223 @@
   <li class="nav-item" role="presentation">
     <a class="nav-link" href="<?= base_url();?>create_transaction/account_receivable">Close Invoice</a>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" href="<?= base_url();?>create_transaction/ar_correction">AR Correction</a>
+  </li>
 </ul>
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active p-3 bg-white border" id="createinvoice" role="tabpanel" aria-labelledby="createinvoice-tab">
-	<form>
-		<div class="row g-2">
-			<div class="col-sm-6 col-md-4 col-lg-3" style="min-height:58px;">
-				<select class="selectpicker form-control h-100 border mod-height-form-floating bg-white shadow-sm" id="customer" name="customer" data-live-search="true" data-size="8" autofocus>
-				    <option>Pilih Customer</option>
-					<?php
-						foreach ($data_customer->result() as $x) {
-					?>
-						<option value="<?= $x->kode_kustomer?>" data-subtext="<?= $x->kode_kustomer?>" data-token="<?= $x->kode_kustomer?>"><?= $x->nama_kustomer?></option>
-					<?php
-						}
-						foreach ($data_vendor->result() as $x) {
-					?>
-						<option value="<?= $x->vendor_id?>" data-subtext="<?= $x->vendor_id?>" data-token="<?= $x->vendor_id?>"><?= $x->vendor?></option>
-					<?php
-						}
-					?>
-				</select>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="form-floating">
-					<input type="date" class="form-control shadow-sm" id="tgl_inv" name="tgl_inv" placeholder="Tanggal Invoice" required="">
-					<label for="tgl_inv">Tanggal Invoice</label>
+		<form>
+			<div class="row g-2">
+				<div class="col-sm-6 col-md-4 col-lg-3" style="min-height:58px;">
+					<select class="selectpicker form-control h-100 border mod-height-form-floating bg-white shadow-sm" id="customer" name="customer" data-live-search="true" data-size="8">
+					    <option>Pilih Customer</option>
+						<?php
+							foreach ($data_customer->result() as $x) {
+						?>
+							<option value="<?= $x->inisial1?>" data-subtext="<?= $x->inisial1?>" data-token="<?= $x->inisial1?>"><?= $x->nama_kustomer?></option>
+						<?php
+							}
+							foreach ($data_vendor->result() as $x) {
+						?>
+							<option value="<?= $x->vendor_id?>" data-subtext="<?= $x->vendor_id?>" data-token="<?= $x->vendor_id?>"><?= $x->vendor?></option>
+						<?php
+							}
+						?>
+					</select>
 				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="form-floating">
-					<input type="hidden" id="nomor" value="<?php echo $nomor_txt; ?>">
-					<input type="text" class="form-control shadow-sm" id="no_inv" name="no_inv" placeholder="Nomor Invoice" value="<?php echo $nomor_txt;?>/cust_code/dept_code/project_code/romawi_month/yyyy">
-					<label for="no_inv">Nomor Invoice</label>
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<div class="form-floating">
+						<input type="date" class="form-control shadow-sm" id="tgl_inv" name="tgl_inv" placeholder="Tanggal Invoice" required="">
+						<label for="tgl_inv">Tanggal Invoice</label>
+					</div>
 				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="form-floating">
-					<input type="text" class="form-control shadow-sm" id="no_kontrak" name="no_kontrak" placeholder="Nomor Kontrak"  required="">
-					<label for="no_kontrak">Nomor Kontrak</label>
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<div class="form-floating">
+						<input type="hidden" id="nomor" value="*****">
+						<input type="hidden" id="formatnomor">
+						<input type="text" class="form-control shadow-sm" id="no_inv" name="no_inv" placeholder="Nomor Invoice" value="*****/cust_code/dept_code/project_code/romawi_month/yyyy">
+						<label for="no_inv">Nomor Invoice</label>
+					</div>
 				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="form-floating">
-					<input type="text" class="form-control shadow-sm" id="no_po_spk" name="no_po_spk" placeholder="Nomor PO/SPK" required="">
-					<label for="no_po_spk">Nomor PO/SPK</label>
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<div class="form-floating">
+						<!-- <input type="text" class="form-control shadow-sm" id="no_kontrak" name="no_kontrak" placeholder="Nomor Kontrak"  required=""> -->
+						<select class="form-control" id="no_kontrak" name="no_kontrak" data-live-search="true" data-size="8"  required="">
+							<option>Pilih Nomor Kontrak</option>
+						</select>
+						<label for="no_kontrak">Nomor Kontrak</label>
+					</div>
 				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="form-floating">
-					<textarea class="form-control shadow-sm" placeholder="Masukkan keterangan" id="remark" name="remark" required=""></textarea>
-					<label for="remark">Keterangan</label>
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<div class="form-floating">
+						<input type="text" class="form-control shadow-sm" id="no_po_spk" name="no_po_spk" placeholder="Nomor PO/SPK" required="">
+						<label for="no_po_spk">Nomor PO/SPK</label>
+					</div>
 				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3" style="min-height:58px;">
-				<select class="selectpicker form-control h-100 border mod-height-form-floating bg-white shadow-sm" id="bank" name="bank" data-live-search="true" data-size="8"  required="">
-				    <option>Pilih Bank</option>
-					<?php
-						foreach ($data_bank->result() as $x) {
-					?>
-						<option value="<?= $x->bank_account?>" data-subtext="<?= $x->bank_account?>" data-token="<?= $x->bank_account?>"><?= $x->bank_name?></option>
-					<?php
-						}
-					?>
-				</select>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="form-floating">
-					<input type="text" class="form-control shadow-sm" id="uang_muka" name="uang_muka" placeholder="DP" required="">
-					<label for="uang_muka">DP</label>
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<div class="form-floating">
+						<textarea class="form-control shadow-sm" placeholder="Masukkan keterangan" id="remark" name="remark" required=""></textarea>
+						<label for="remark">Keterangan</label>
+					</div>
 				</div>
-			</div>
-			<div class="col-12 mb-3">
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Deskripsi pesanan</button>
-					</li>
-				</ul>
-				<div class="tab-content shadow-sm" id="myTabContent">
-					<div class="tab-pane fade show active p-3 bg-white border border-top-0" id="home" role="tabpanel" aria-labelledby="home-tab">
-						<div class="table-responsive">
-							<table class="table table-bordered table-sm" width="100%" cellspacing="0">
-								<tbody id="dataDeskripsi">
-									<tr class="bg-secondary text-white">
-										<th scope="col">#</th>
-										<th scope="col">Deskripsi&nbsp;Pesanan</th>
-										<th scope="col">Departement</th>
-										<th scope="col">Project</th>
-										<th scope="col">Akun&nbsp;Pendapatan</th>
-										<th scope="col">Akun&nbsp;Piutang</th>
-										<th scope="col">Satuan</th>
-										<th scope="col">Jumlah</th>
-										<th scope="col">Harga</th>
-										<th scope="col">Total&nbsp;(Jml*Harga)</th>
-										<th scope="col">Pajak</th>
-										<th scope="col">Netto&nbsp;(Total+Pajak)</th>
-									</tr>
-									<?php for ($i=1; $i <= 8 ; $i++) { ?>								
-										<tr id="rowCount<?= $i; ?>">
-											<td><?= $i; ?></td>
-											<td><input class="form-control form-control-sm"  type="text" id="deskripsi<?= $i; ?>" name="deskripsi<?= $i; ?>" ></td>
-											<td>
-												<select class="selectpicker form-control form-control-sm border bg-white" id="department<?= $i; ?>" name="department<?= $i; ?>" data-live-search="true" data-size="8">
-												    <option>Pilih Department</option>
-													<?php
-														foreach ($data_department_hris->result() as $x) {
-													?>
-														<option value="<?= $x->dept_code?>" data-subtext="<?= $x->dept_code?>" data-token="<?= $x->dept_code?>"><?= $x->dept_name?></option>
-													<?php
-														}
-													?>
-												</select>
-											</td>
-											<td>
-												<select class="form-control form-control-sm border bg-white" id="project<?= $i; ?>" name="project<?= $i; ?>" id="project<?= $i; ?>" style="min-width:200px!important;max-width:100%!important">
-												    <option>Pilih Project</option>
-												</select>
-											</td>
-											<td id="render_akunPendapatan<?= $i; ?>">
-												<input type="hidden" class="form-control" id="id_akunPendapatan<?= $i; ?>" name="id_akunPendapatan<?= $i; ?>">
-												<input type="hidden" class="form-control" id="kode_akunPendapatan<?= $i; ?>" name="kode_akunPendapatan<?= $i; ?>">
-												<div class="input-group input-group-sm" style="min-width:150px!important;max-width:100%!important">
-													<input type="text" class="form-control" id="nama_akunPendapatan<?= $i; ?>" name="nama_akunPendapatan<?= $i; ?>" readonly>
-												</div>
-											</td>
-											<td id="render_akunPiutang<?= $i; ?>">
-												<input type="hidden" class="form-control" id="id_akunPiutang<?= $i; ?>" name="id_akunPiutang<?= $i; ?>">
-												<input type="hidden" class="form-control" id="kode_akunPiutang<?= $i; ?>" name="kode_akunPiutang<?= $i; ?>">
-												<div class="input-group input-group-sm" style="min-width:150px!important;max-width:100%!important">
-													<input type="text" class="form-control" id="nama_akunPiutang<?= $i; ?>" name="nama_akunPiutang<?= $i; ?>" readonly>
-												</div>
-											</td>
-											<td id="render_satuan<?= $i; ?>">
-												<div class="input-group input-group-sm" style="min-width:150px!important;max-width:100%!important"> 
-													<input type="text" class="form-control" id="satuan<?= $i; ?>" name="satuan<?= $i; ?>" readonly>
-													<button class="btn btn-outline-secondary d-none" type="button" id="button-addon-hapus-satuan-<?= $i; ?>" data-bs-toggle="tooltip" title="Hapus?"><i class="fas fa-times-circle"></i></button>
-													<button class="btn btn-outline-secondary" type="button" id="button-addon-cari-satuan-<?= $i; ?>" data-bs-toggle="modal" data-bs-target="#modalSatuan<?= $i; ?>"><i class="fas fa-search"></i></button>
-												</div>
-											</td>
-											<td><input class="form-control form-control-sm"  type="text" id="no_jumlah<?= $i; ?>" name="no_jumlah<?= $i; ?>" style="width: 80px;" data-bs-toggle="tooltip" title="Desimal menggunakan titik"></td>
-											<td><input class="form-control form-control-sm"  type="text" id="no_harga<?= $i; ?>" name="no_harga<?= $i; ?>" data-type="currency" style="min-width:150px!important;max-width:100%!important"></td>
-											<td><input class="form-control form-control-sm"  type="text" id="no_total<?= $i; ?>" name="no_total<?= $i; ?>" readonly style="min-width:150px!important;max-width:100%!important"></td>
-											<td id="render_pajak<?= $i; ?>">
-												<input type="hidden" class="form-control" id="id_pajak<?= $i; ?>" name="id_pajak<?= $i; ?>">
-												<input type="hidden" class="form-control" id="kode_pajak<?= $i; ?>" name="kode_pajak<?= $i; ?>" readonly>
-												<input type="hidden" class="form-control" id="nilai<?= $i; ?>" name="nilai<?= $i; ?>" readonly>
-												<div class="input-group input-group-sm" style="min-width:150px!important;max-width:100%!important">
-													<input type="text" class="form-control" id="nama_pajak<?= $i; ?>" name="nama_pajak<?= $i; ?>" readonly>
-													<button class="btn btn-outline-secondary d-none" type="button" id="button-addon-hapus-pajak-<?= $i; ?>" data-bs-toggle="tooltip" title="Hapus?"><i class="fas fa-times-circle"></i></button>
-													<button class="btn btn-outline-secondary" type="button" id="button-addon-cari-pajak-<?= $i; ?>" data-bs-toggle="modal" data-bs-target="#modalPajak<?= $i; ?>"><i class="fas fa-search"></i></button>
-												</div>
-											</td>
-											<td><input class="form-control form-control-sm netto" type="text" id="no_netto<?= $i; ?>" name="no_netto<?= $i; ?>" style="min-width:150px!important;max-width:100%!important" readonly></td>
+				<div class="col-sm-6 col-md-4 col-lg-3" style="min-height:58px;">
+					<select class="selectpicker form-control h-100 border mod-height-form-floating bg-white shadow-sm" id="bank" name="bank" data-live-search="true" data-size="8"  required="">
+					    <option>Pilih Bank</option>
+						<?php
+							foreach ($data_bank->result() as $x) {
+						?>
+							<option value="<?= $x->bank_account?>" data-subtext="<?= $x->bank_account?>" data-token="<?= $x->bank_account?>"><?= $x->bank_name?></option>
+						<?php
+							}
+						?>
+					</select>
+				</div>
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<div class="form-floating">
+						<input type="text" class="form-control shadow-sm" id="uang_muka" name="uang_muka" placeholder="DP" required="">
+						<label for="uang_muka">DP</label>
+					</div>
+				</div>
+				<!-- <div class="col-sm-6 col-md-4 col-lg-3" style="min-height:58px;">
+					<select class="selectpicker form-control h-100 border mod-height-form-floating bg-white shadow-sm" id="type_detail" name="type_detail" data-live-search="true" data-size="8"  required="">
+					    <option>Pilih</option>
+						<option value="All">All</option>
+						<option value="Multi">Multi</option>
+					</select>
+				</div> -->
+				<div class="col-12 mb-3">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Deskripsi pesanan</button>
+						</li>
+					</ul>
+					<div class="tab-content shadow-sm" id="myTabContent">
+						<div class="tab-pane fade show active p-3 bg-white border border-top-0" id="home" role="tabpanel" aria-labelledby="home-tab">
+							<div class="table-responsive">
+								<table class="table table-bordered table-sm" width="100%" cellspacing="0">
+									<tbody id="dataDeskripsi">
+										<tr class="bg-secondary text-white">
+											<th scope="col">#</th>
+											<th scope="col">Departement</th>
+											<th scope="col">Project</th>
+											<th scope="col">Akun&nbsp;Pendapatan</th>
+											<th scope="col">Akun&nbsp;Piutang</th>
+											<th scope="col">ID&nbsp;Customer&nbsp;DN</th>
+											<th scope="col">Deskripsi&nbsp;Pesanan</th>
+											<th scope="col">Satuan</th>
+											<th scope="col">Jumlah</th>
+											<th scope="col">Harga</th>
+											<th scope="col">Total&nbsp;(Jml*Harga)</th>
+											<th scope="col">Pajak</th>
+											<th scope="col">Netto&nbsp;(Total+Pajak)</th>
 										</tr>
-									<?php } ?>
-									<tr>
-										<td colspan="8"></td>
-										<td align="right"><b>Subtotal :</b></td>
-										<td><button type="button" class="btn btn-success fw-bold btn-sm w-100" id="subtotal" data-bs-toggle="tooltip" title="Klik untuk cek">Cek Subtotal</button></td>
-										<td align="right"><b>Total Netto :</b></td>
-										<td><button type="button" class="btn btn-success fw-bold btn-sm w-100" id="total_netto" data-bs-toggle="tooltip" title="Klik untuk cek">Cek Total Netto</button></td>
-									</tr>
-								</tbody>
-							</table>
+										<?php for ($i=1; $i <= 8 ; $i++) { ?>								
+											<tr id="rowCount<?= $i; ?>">
+												<td><?= $i; ?></td>
+												<td>
+													<select class="selectpicker form-control form-control-sm border bg-white" id="department<?= $i; ?>" name="department<?= $i; ?>" data-live-search="true" data-size="8" data-container="body">
+													    <option>Pilih Department</option>
+														<?php
+															foreach ($data_department_hris->result() as $x) {
+														?>
+															<option value="<?= $x->dept_code?>" data-subtext="<?= $x->dept_code?>" data-token="<?= $x->dept_code?>"><?= $x->dept_name?></option>
+														<?php
+															}
+														?>
+													</select>
+												</td>
+												<td>
+													<select class="form-control form-control-sm border bg-white" id="project<?= $i; ?>" name="project<?= $i; ?>" id="project<?= $i; ?>" style="min-width:200px!important;max-width:100%!important">
+													    <option>Pilih Project</option>
+													</select>
+												</td>												
+												<td id="render_akunPendapatan<?= $i; ?>">
+													<input type="hidden" class="form-control" id="id_akunPendapatan<?= $i; ?>" name="id_akunPendapatan<?= $i; ?>">
+													<input type="hidden" class="form-control" id="kode_akunPendapatan<?= $i; ?>" name="kode_akunPendapatan<?= $i; ?>">
+													<div class="input-group input-group-sm" style="min-width:150px!important;max-width:100%!important">
+														<input type="text" class="form-control" id="nama_akunPendapatan<?= $i; ?>" name="nama_akunPendapatan<?= $i; ?>" readonly>
+													</div>
+												</td>
+												<td id="render_akunPiutang<?= $i; ?>">
+													<input type="hidden" class="form-control" id="id_akunPiutang<?= $i; ?>" name="id_akunPiutang<?= $i; ?>">
+													<input type="hidden" class="form-control" id="kode_akunPiutang<?= $i; ?>" name="kode_akunPiutang<?= $i; ?>">
+													<div class="input-group input-group-sm" style="min-width:150px!important;max-width:100%!important">
+														<input type="text" class="form-control" id="nama_akunPiutang<?= $i; ?>" name="nama_akunPiutang<?= $i; ?>" readonly>
+													</div>
+												</td>												
+												<td>
+													<select  class="form-control form-control-sm"  id="id_customer_dn<?= $i; ?>" name="id_customer_dn<?= $i; ?>" data-live-search="true" data-size="12" data-container="body">
+													    <option>Pilih ID Customer DN</option>
+													</select>
+												</td>
+												<td><input class="form-control form-control-sm"  type="text" id="deskripsi<?= $i; ?>" name="deskripsi<?= $i; ?>" ></td>
+												<td id="render_satuan<?= $i; ?>">
+													<div class="input-group input-group-sm" style="min-width:150px!important;max-width:100%!important"> 
+														<input type="text" class="form-control bg-white" id="satuan<?= $i; ?>" name="satuan<?= $i; ?>" readonly>
+														<button class="btn btn-outline-secondary d-none" type="button" id="button-addon-hapus-satuan-<?= $i; ?>" data-bs-toggle="tooltip" title="Hapus?"><i class="fas fa-times-circle"></i></button>
+														<button class="btn btn-outline-secondary" type="button" id="button-addon-cari-satuan-<?= $i; ?>" data-bs-toggle="modal" data-bs-target="#modalSatuan<?= $i; ?>"><i class="fas fa-search"></i></button>
+													</div>
+												</td>
+												<td><input class="form-control form-control-sm"  type="text" id="no_jumlah<?= $i; ?>" name="no_jumlah<?= $i; ?>" style="width: 80px;" data-bs-toggle="tooltip" title="Desimal menggunakan titik"></td>
+												<td><input class="form-control form-control-sm"  type="text" id="no_harga<?= $i; ?>" name="no_harga<?= $i; ?>" data-type="currency" style="min-width:150px!important;max-width:100%!important"></td>
+												<td><input class="form-control form-control-sm"  type="text" id="no_total<?= $i; ?>" name="no_total<?= $i; ?>" readonly style="min-width:150px!important;max-width:100%!important"></td>
+												<td id="render_pajak<?= $i; ?>">
+													<input type="hidden" class="form-control" id="id_pajak<?= $i; ?>" name="id_pajak<?= $i; ?>">
+													<input type="hidden" class="form-control" id="kode_pajak<?= $i; ?>" name="kode_pajak<?= $i; ?>" readonly>
+													<input type="hidden" class="form-control" id="nilai<?= $i; ?>" name="nilai<?= $i; ?>" readonly>
+													<div class="input-group input-group-sm" style="min-width:150px!important;max-width:100%!important">
+														<input type="text" class="form-control" id="nama_pajak<?= $i; ?>" name="nama_pajak<?= $i; ?>" readonly>
+														<button class="btn btn-outline-secondary d-none" type="button" id="button-addon-hapus-pajak-<?= $i; ?>" data-bs-toggle="tooltip" title="Hapus?"><i class="fas fa-times-circle"></i></button>
+														<button class="btn btn-outline-secondary" type="button" id="button-addon-cari-pajak-<?= $i; ?>" data-bs-toggle="modal" data-bs-target="#modalPajak<?= $i; ?>"><i class="fas fa-search"></i></button>
+													</div>
+												</td>
+												<td><input class="form-control form-control-sm netto" type="text" id="no_netto<?= $i; ?>" name="no_netto<?= $i; ?>" style="min-width:150px!important;max-width:100%!important" readonly></td>
+											</tr>
+										<?php } ?>
+										<tr>
+											<td colspan="8"></td>
+											<td align="right"><b>Subtotal :</b></td>
+											<td><button type="button" class="btn btn-success fw-bold btn-sm w-100" id="subtotal" data-bs-toggle="tooltip" title="Klik untuk cek">Cek Subtotal</button></td>
+											<td align="right"><b>Total Netto :</b></td>
+											<td><button type="button" class="btn btn-success fw-bold btn-sm w-100" id="total_netto" data-bs-toggle="tooltip" title="Klik untuk cek">Cek Total Netto</button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="form-floating">
-					<input type="date" class="form-control shadow-sm" id="tgl_kirim_inv" name="tgl_kirim_inv" required="">
-					<label for="tgl_kirim_inv">Tanggal Diterima Invoice</label>
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<div class="form-floating">
+						<input type="date" class="form-control shadow-sm" id="tgl_kirim_inv" name="tgl_kirim_inv" required="">
+						<label for="tgl_kirim_inv">Tanggal Diterima Invoice</label>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<div class="form-floating">
+						<input type="month" class="form-control shadow-sm" id="periode_kegiatan" name="periode_kegiatan" required="">
+						<label for="periode_kegiatan">Periode Kegiatan</label>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<div class="form-floating">
+						<input type="number" class="form-control shadow-sm" id="term_pembayaran" name="term_pembayaran" placeholder="Term Pembayaran (hari)" required="">
+						<label for="term_pembayaran">Term Pembayaran (hari)</label>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-4 col-lg-3 d-grid">
+					<div class="input-group">
+						<select class="form-select" id="status" aria-label="Example select with button addon" required="">
+						    <option value="">Draft or Posting</option>
+						    <option value="0">Draft</option>
+						    <option value="1" disabled>Posting</option>
+						</select>
+						<button type="submit" class="btn btn-primary" id="simpan">Submit</button>
+					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="form-floating">
-					<input type="month" class="form-control shadow-sm" id="periode_kegiatan" name="periode_kegiatan" required="">
-					<label for="periode_kegiatan">Periode Kegiatan</label>
-				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="form-floating">
-					<input type="number" class="form-control shadow-sm" id="term_pembayaran" name="term_pembayaran" placeholder="Term Pembayaran (hari)" required="">
-					<label for="term_pembayaran">Term Pembayaran (hari)</label>
-				</div>
-			</div>
-			<div class="col-sm-6 col-md-4 col-lg-3 d-grid">
-				<div class="input-group">
-					<select class="form-select" id="status" aria-label="Example select with button addon" required="">
-					    <option value="">Draft or Posting</option>
-					    <option value="0">Draft</option>
-					    <option value="1">Posting</option>
-					</select>
-					<button type="submit" class="btn btn-primary" id="simpan">Submit</button>
-				</div>
-			</div>
-		</div>
-	</form>
+		</form>
   </div>
 </div>
 
@@ -396,6 +416,17 @@
 <?php endfor;?>
 
 <script type="text/javascript">
+	$(document).ready(function() {
+		$('#no_kontrak').change(function(event) {
+			if ($('#no_kontrak').val()=='') {
+				$('select#status > option[value="1"]').attr('disabled', true);
+				$('select#status > option[value=""]').attr('selected', true);
+			}else{
+				$('select#status > option[value="1"]').attr('disabled', false);
+				$('select#status > option[value=""]').attr('selected', false);
+			}
+		});
+	});
 	$('#department1').change(function(){
 		var id=$('#department1').val();
 		$.ajax({
@@ -1358,8 +1389,27 @@
 		var harga8 = $('#no_harga8');
 		var total8 = $('#no_total8');
 
+		function formatAngkaInput(inputElement) {
+      // Mengambil nilai dari input
+      let angka = inputElement.value;
+      // Menghapus semua karakter selain angka, titik (.) dan tanda minus (jika ada)
+      angka = angka.replace(/[^\d.-]/g, '');
+      // Menghilangkan karakter titik yang lebih dari satu
+      angka = angka.replace(/(\..*)\./g, '$1');
+      // Mencegah lebih dari satu tanda minus di awal angka
+      angka = angka.replace(/^-/g, '');
+      // Mengatasi kasus input kosong
+      if (angka === '') {
+        inputElement.value = 0;
+        return;
+      }
+      // Memformat angka sesuai dengan 'en-US' atau 'id-ID'
+      const hasilPemformatan = parseFloat(angka).toLocaleString('en-US', { maximumFractionDigits: 2 }); // Ganti dengan 'id-ID' jika ingin format Indonesia
+      // Memasukkan hasil pemformatan kembali ke input
+      inputElement.value = hasilPemformatan;
+    }
 		$('#no_jumlah1').keyup(function(event) {
-			$('#no_total1').val(parseFloat($('#no_jumlah1').val()*$('#no_harga1').val()).toFixed(2));
+			$('#no_total1').val(parseFloat($('#no_jumlah1').val()*$('#no_harga1').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto1').val('');
 			$('#id_pajak1').val('');
 			$('#kode_pajak1').val('');
@@ -1367,7 +1417,8 @@
 			$('#nilai1').val('');
 		});
 		$('#no_harga1').keyup(function(event) {
-			$('#no_total1').val(parseFloat($('#no_jumlah1').val()*$('#no_harga1').val()).toFixed(2));
+			formatAngkaInput(this);
+			$('#no_total1').val(parseFloat($('#no_jumlah1').val()*$('#no_harga1').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto1').val('');
 			$('#id_pajak1').val('');
 			$('#kode_pajak1').val('');
@@ -1375,7 +1426,7 @@
 			$('#nilai1').val('');
 		});
 		$('#no_jumlah2').keyup(function(event) {
-			$('#no_total2').val(parseFloat($('#no_jumlah2').val()*$('#no_harga2').val()).toFixed(2));
+			$('#no_total2').val(parseFloat($('#no_jumlah2').val()*$('#no_harga2').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto2').val('');
 			$('#id_pajak2').val('');
 			$('#kode_pajak2').val('');
@@ -1383,7 +1434,8 @@
 			$('#nilai2').val('');
 		});
 		$('#no_harga2').keyup(function(event) {
-			$('#no_total2').val(parseFloat($('#no_jumlah2').val()*$('#no_harga2').val()).toFixed(2));
+			formatAngkaInput(this);
+			$('#no_total2').val(parseFloat($('#no_jumlah2').val()*$('#no_harga2').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto2').val('');
 			$('#id_pajak2').val('');
 			$('#kode_pajak2').val('');
@@ -1391,7 +1443,7 @@
 			$('#nilai2').val('');
 		});
 		$('#no_jumlah3').keyup(function(event) {
-			$('#no_total3').val(parseFloat($('#no_jumlah3').val()*$('#no_harga3').val()).toFixed(2));
+			$('#no_total3').val(parseFloat($('#no_jumlah3').val()*$('#no_harga3').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto3').val('');
 			$('#id_pajak3').val('');
 			$('#kode_pajak3').val('');
@@ -1399,7 +1451,8 @@
 			$('#nilai3').val('');
 		});
 		$('#no_harga3').keyup(function(event) {
-			$('#no_total3').val(parseFloat($('#no_jumlah3').val()*$('#no_harga3').val()).toFixed(2));
+			formatAngkaInput(this);
+			$('#no_total3').val(parseFloat($('#no_jumlah3').val()*$('#no_harga3').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto3').val('');
 			$('#id_pajak3').val('');
 			$('#kode_pajak3').val('');
@@ -1407,7 +1460,7 @@
 			$('#nilai3').val('');
 		});
 		$('#no_jumlah4').keyup(function(event) {
-			$('#no_total4').val(parseFloat($('#no_jumlah4').val()*$('#no_harga4').val()).toFixed(2));
+			$('#no_total4').val(parseFloat($('#no_jumlah4').val()*$('#no_harga4').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto4').val('');
 			$('#id_pajak4').val('');
 			$('#kode_pajak4').val('');
@@ -1415,7 +1468,8 @@
 			$('#nilai4').val('');
 		});
 		$('#no_harga4').keyup(function(event) {
-			$('#no_total4').val(parseFloat($('#no_jumlah4').val()*$('#no_harga4').val()).toFixed(2));
+			formatAngkaInput(this);
+			$('#no_total4').val(parseFloat($('#no_jumlah4').val()*$('#no_harga4').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto4').val('');
 			$('#id_pajak4').val('');
 			$('#kode_pajak4').val('');
@@ -1423,7 +1477,7 @@
 			$('#nilai4').val('');
 		});
 		$('#no_jumlah5').keyup(function(event) {
-			$('#no_total5').val(parseFloat($('#no_jumlah5').val()*$('#no_harga5').val()).toFixed(2));
+			$('#no_total5').val(parseFloat($('#no_jumlah5').val()*$('#no_harga5').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto5').val('');
 			$('#id_pajak5').val('');
 			$('#kode_pajak5').val('');
@@ -1431,7 +1485,8 @@
 			$('#nilai5').val('');
 		});
 		$('#no_harga5').keyup(function(event) {
-			$('#no_total5').val(parseFloat($('#no_jumlah5').val()*$('#no_harga5').val()).toFixed(2));
+			formatAngkaInput(this);
+			$('#no_total5').val(parseFloat($('#no_jumlah5').val()*$('#no_harga5').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto5').val('');
 			$('#id_pajak5').val('');
 			$('#kode_pajak5').val('');
@@ -1439,7 +1494,7 @@
 			$('#nilai5').val('');
 		});
 		$('#no_jumlah6').keyup(function(event) {
-			$('#no_total6').val(parseFloat($('#no_jumlah6').val()*$('#no_harga6').val()).toFixed(2));
+			$('#no_total6').val(parseFloat($('#no_jumlah6').val()*$('#no_harga6').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto6').val('');
 			$('#id_pajak6').val('');
 			$('#kode_pajak6').val('');
@@ -1447,7 +1502,8 @@
 			$('#nilai6').val('');
 		});
 		$('#no_harga6').keyup(function(event) {
-			$('#no_total6').val(parseFloat($('#no_jumlah6').val()*$('#no_harga6').val()).toFixed(2));
+			formatAngkaInput(this);
+			$('#no_total6').val(parseFloat($('#no_jumlah6').val()*$('#no_harga6').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto6').val('');
 			$('#id_pajak6').val('');
 			$('#kode_pajak6').val('');
@@ -1455,7 +1511,7 @@
 			$('#nilai6').val('');
 		});
 		$('#no_jumlah7').keyup(function(event) {
-			$('#no_total7').val(parseFloat($('#no_jumlah7').val()*$('#no_harga7').val()).toFixed(2));
+			$('#no_total7').val(parseFloat($('#no_jumlah7').val()*$('#no_harga7').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto7').val('');
 			$('#id_pajak7').val('');
 			$('#kode_paja7').val('');
@@ -1463,7 +1519,8 @@
 			$('#nilai7').val('');
 		});
 		$('#no_harga7').keyup(function(event) {
-			$('#no_total7').val(parseFloat($('#no_jumlah7').val()*$('#no_harga7').val()).toFixed(2));
+			formatAngkaInput(this);
+			$('#no_total7').val(parseFloat($('#no_jumlah7').val()*$('#no_harga7').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto7').val('');
 			$('#id_pajak7').val('');
 			$('#kode_pajak7').val('');
@@ -1471,7 +1528,7 @@
 			$('#nilai7').val('');
 		});
 		$('#no_jumlah8').keyup(function(event) {
-			$('#no_total8').val(parseFloat($('#no_jumlah8').val()*$('#no_harga8').val()).toFixed(2));
+			$('#no_total8').val(parseFloat($('#no_jumlah8').val()*$('#no_harga8').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto8').val('');
 			$('#id_pajak8').val('');
 			$('#kode_pajak8').val('');
@@ -1479,7 +1536,8 @@
 			$('#nilai8').val('');
 		});
 		$('#no_harga8').keyup(function(event) {
-			$('#no_total8').val(parseFloat($('#no_jumlah8').val()*$('#no_harga8').val()).toFixed(2));
+			formatAngkaInput(this);
+			$('#no_total8').val(parseFloat($('#no_jumlah8').val()*$('#no_harga8').val().replace(/,/g, "")).toFixed(2));
 			$('#no_netto8').val('');
 			$('#id_pajak8').val('');
 			$('#kode_pajak8').val('');
@@ -1499,8 +1557,8 @@
 			$('#nama_pajak1').val(col3);
 			$('#nilai1').val(col4);
 			var pajak1 = $('#nilai1').val()/100;
-			var tot_pajak1 = pajak1*total1.val();
-			var netto1 = parseFloat(tot_pajak1)+parseFloat(total1.val());
+			var tot_pajak1 = pajak1*total1.val().replace(/,/g, "");
+			var netto1 = Math.floor(tot_pajak1)+parseFloat(total1.val());
 			$('#no_netto1').val(netto1.toFixed(2));
 			$('#button-addon-hapus-pajak-1').addClass('text-danger');
 			$('#button-addon-hapus-pajak-1').removeClass('d-none');
@@ -1526,7 +1584,7 @@
 			$('#nilai2').val(col4);
 			var pajak2 = $('#nilai2').val()/100;
 			var tot_pajak2 = pajak2*total2.val();
-			var netto2 = parseFloat(tot_pajak2)+parseFloat(total2.val());
+			var netto2 = Math.floor(tot_pajak2)+parseFloat(total2.val());
 			$('#no_netto2').val(netto2.toFixed(2));
 			$('#button-addon-hapus-pajak-2').addClass('text-danger');
 			$('#button-addon-hapus-pajak-2').removeClass('d-none');
@@ -1552,7 +1610,7 @@
 			$('#nilai3').val(col4);
 			var pajak3 = $('#nilai3').val()/100;
 			var tot_pajak3 = pajak3*total3.val();
-			var netto3 = parseFloat(tot_pajak3)+parseFloat(total3.val());
+			var netto3 = Math.floor(tot_pajak3)+parseFloat(total3.val());
 			$('#no_netto3').val(netto3.toFixed(2));
 			$('#button-addon-hapus-pajak-3').addClass('text-danger');
 			$('#button-addon-hapus-pajak-3').removeClass('d-none');
@@ -1578,7 +1636,7 @@
 			$('#nilai4').val(col4);
 			var pajak4 = $('#nilai4').val()/100;
 			var tot_pajak4 = pajak4*total4.val();
-			var netto4 = parseFloat(tot_pajak4)+parseFloat(total4.val());
+			var netto4 = Math.floor(tot_pajak4)+parseFloat(total4.val());
 			$('#no_netto4').val(netto4.toFixed(2));
 			$('#button-addon-hapus-pajak-4').addClass('text-danger');
 			$('#button-addon-hapus-pajak-4').removeClass('d-none');
@@ -1604,7 +1662,7 @@
 			$('#nilai5').val(col4);
 			var pajak5 = $('#nilai5').val()/100;
 			var tot_pajak5 = pajak5*total5.val();
-			var netto5 = parseFloat(tot_pajak5)+parseFloat(total5.val());
+			var netto5 = Math.floor(tot_pajak5)+parseFloat(total5.val());
 			$('#no_netto5').val(netto5.toFixed(2));
 			$('#button-addon-hapus-pajak-5').addClass('text-danger');
 			$('#button-addon-hapus-pajak-5').removeClass('d-none');
@@ -1630,7 +1688,7 @@
 			$('#nilai6').val(col4);
 			var pajak6 = $('#nilai6').val()/100;
 			var tot_pajak6 = pajak6*total6.val();
-			var netto6 = parseFloat(tot_pajak6)+parseFloat(total6.val());
+			var netto6 = Math.floor(tot_pajak6)+parseFloat(total6.val());
 			$('#no_netto6').val(netto6.toFixed(2));
 			$('#button-addon-hapus-pajak-6').addClass('text-danger');
 			$('#button-addon-hapus-pajak-6').removeClass('d-none');
@@ -1656,7 +1714,7 @@
 			$('#nilai7').val(col4);
 			var pajak7 = $('#nilai7').val()/100;
 			var tot_pajak7 = pajak7*total7.val();
-			var netto7 = parseFloat(tot_pajak7)+parseFloat(total7.val());
+			var netto7 = Math.floor(tot_pajak7)+parseFloat(total7.val());
 			$('#no_netto7').val(netto7.toFixed(2));
 			$('#button-addon-hapus-pajak-7').addClass('text-danger');
 			$('#button-addon-hapus-pajak-7').removeClass('d-none');
@@ -1682,7 +1740,7 @@
 			$('#nilai8').val(col4);
 			var pajak8 = $('#nilai8').val()/100;
 			var tot_pajak8 = pajak8*total8.val();
-			var netto8 = parseFloat(tot_pajak8)+parseFloat(total8.val());
+			var netto8 = Math.floor(tot_pajak8)+parseFloat(total8.val());
 			$('#no_netto8').val(netto8.toFixed(2));
 			$('#button-addon-hapus-pajak-8').addClass('text-danger');
 			$('#button-addon-hapus-pajak-8').removeClass('d-none');
@@ -1917,6 +1975,8 @@
 
     // genereate nomor invoice
 	$('#customer').change(function(){
+		$('select#status > option[value="1"]').attr('disabled', true);
+		$('select#status > option[value=""]').attr('selected', true);
 		var nomor=$('#nomor').val();
 		var customer=$('#customer').val();
 		var department=$('#department1').val();
@@ -1953,6 +2013,40 @@
 		} 
 		var value=nomor+'/'+customer+'/'+department+'/'+project+'/'+bln+'/'+tahun;
 		$('#no_inv').val(value); 
+		$.ajax({
+			url : "<?php echo base_url();?>create_transaction/getKontrak",
+			method : "POST",
+			data : {customer: customer},
+			dataType : 'json',
+			success: function(data){
+				var html = '';
+				var i;
+				for(i=0; i<data.length; i++){
+					html += '<option value="'+data[i].id_contract+'">'+data[i].no_of_contract_help+' - '+data[i].title_contract+'</option>';
+				}
+				$('#no_kontrak').html('<option value="">Pilih Nomor Kontrak</<option>'+html);
+			}
+		});
+
+		$.ajax({
+			url : "<?php echo base_url();?>create_transaction/getHeaderDn",
+			method : "POST",
+			data : {customer: customer},
+			dataType : 'json',
+			success: function(data){
+				var html = '';
+				var i;
+				for(i=0; i<data.length; i++){
+					html += '<option value="'+data[i].id+'">'+data[i].id+' - '+data[i].nama_proyek+'</option>';
+				}
+				for (let i = 1; i <= 8; i++) {
+					console.log(i);
+					$('#id_customer_dn'+i).html('<option value="">Pilih ID Customer Dn</<option>'+html);
+				}
+
+
+			}
+		});
 	}); 
 	
 	$('#department1').change(function(){
@@ -2066,7 +2160,7 @@
 			alert("Mohon untuk mengisi Bank !!!");
 			$("select#bank+button").removeClass('btn-light');
 			$("select#bank+button").addClass('btn-danger');
-		}else if(department=='' || project=='' || tgl_inv=='' || no_inv=='' || no_kontrak=='' || no_po_spk=='' || remark=='' || tgl_kirim_inv=='' || periode_kegiatan=='' || term_pembayaran=='' || status==''){
+		}else if(tgl_inv=='' || no_inv=='' || no_kontrak=='' || no_po_spk=='' || remark=='' || tgl_kirim_inv=='' || periode_kegiatan=='' || term_pembayaran=='' || status==''){
 			alert("Mohon untuk diisi dengan lengkap !!!");
 		}else{
 			$.ajax({
@@ -2087,34 +2181,56 @@
 							term_pembayaran:term_pembayaran,
 							status:status
 					},
-					success: function (response){   
-					}   
-			}); 
-			for (i=1;i<=8;i++)
-			{
-				var deskripsi=$('#deskripsi'+i).val();
-				var department=$('#department'+i).val();
-				var project=$('#project'+i).val();
-				var id_akunPendapatan=$('#id_akunPendapatan'+i).val();
-				var id_akunPiutang=$('#id_akunPiutang'+i).val();
-				var satuan=$('#satuan'+i).val();
-				var no_jumlah=$('#no_jumlah'+i).val();
-				var no_harga=$('#no_harga'+i).val();
-				var no_total=$('#no_total'+i).val();
-				var id_pajak=$('#id_pajak'+i).val();
-				var no_netto=$('#no_netto'+i).val();
-				if (no_inv!='' && deskripsi!='' && department!='Pilih Department' && project!='Pilih Project' && id_akunPendapatan!='' && id_akunPiutang!='' && satuan!='' && no_jumlah!='' && no_harga!='' && (no_total!='' || no_total!='0') && id_pajak!='' && no_netto!='') {
-					$.ajax({
-							url: '<?php echo base_url();?>create_transaction/save_transaction_detail',
-							dataType: 'json',
-							type: 'POST', 
-							data: {no_inv : no_inv, deskripsi:deskripsi,department:department,project:project,id_akunPendapatan:id_akunPendapatan, id_akunPiutang:id_akunPiutang, no_jumlah:no_jumlah, satuan:satuan, no_harga:no_harga, no_total:no_total,id_pajak:id_pajak,no_netto:no_netto},
-							success: function (response){}   
-					});
-				}
-			}
-			alert('DATA TERSIMPAN');
-			window.location="<?= base_url('home')?>"
+					beforeSend: function() {
+			      $('#simpan').attr('disabled', true);
+			    },
+					success: function (response){
+			      $('#formatnomor').val(response.result);
+						Swal.fire({
+			        icon: 'success',
+			        title: 'Success!',
+			        html: 'Berikut adalah nomor invoicenya :<br><b>'+response.result+'</b>',
+			        showConfirmButton: true,
+			        allowOutsideClick: false,
+			        allowEscapeKey: false
+			      }).then((result) => {
+			        for (i=1;i<=8;i++)
+							{
+								var no_inv_nya=$('#formatnomor').val();
+								var id_customer_dn=$('#id_customer_dn'+i).val();
+								var deskripsi=$('#deskripsi'+i).val();
+								var department=$('#department'+i).val();
+								var project=$('#project'+i).val();
+								var id_akunPendapatan=$('#id_akunPendapatan'+i).val();
+								var id_akunPiutang=$('#id_akunPiutang'+i).val();
+								var satuan=$('#satuan'+i).val();
+								var no_jumlah=$('#no_jumlah'+i).val();
+								var no_harga=$('#no_harga'+i).val();
+								var no_total=$('#no_total'+i).val();
+								var id_pajak=$('#id_pajak'+i).val();
+								var no_netto=$('#no_netto'+i).val();
+								if (no_inv!='' && deskripsi!='' && department!='Pilih Department' && project!='Pilih Project' && id_akunPendapatan!='' && id_akunPiutang!='' && satuan!='' && no_jumlah!='' && no_harga!='' && (no_total!='' || no_total!='0') && id_pajak!='' && no_netto!='') {
+									$.ajax({
+											url: '<?php echo base_url();?>create_transaction/save_transaction_detail',
+											dataType: 'json',
+											type: 'POST', 
+											data: {no_inv : no_inv_nya, deskripsi:deskripsi, id_customer_dn:id_customer_dn, department:department,project:project,id_akunPendapatan:id_akunPendapatan, id_akunPiutang:id_akunPiutang, no_jumlah:no_jumlah, satuan:satuan, no_harga:no_harga.replace(/,/g, ""), no_total:no_total,id_pajak:id_pajak,no_netto:no_netto},
+											success: function (response){}   
+									});
+								}
+							}
+			      	if (result.isConfirmed) {
+			          window.location="<?= base_url('home')?>";
+						  }
+			      });
+					},
+					error: function(xhr, status, error) {
+			        alert("Terjadi kesalahan dalam permintaan AJAX. Silakan coba lagi nanti.");
+			    },
+			    complete: function() {
+			        $('#simpan').attr('disabled', false);
+			    }
+			});
 			return false;
 		}
 	});

@@ -29,23 +29,28 @@
 						<th>No.</th>
 						<th>Bank Name</th> 
 						<th>Bank Account</th> 
+						<th>Status</th> 
 						<th>Opsi</th>
 					</tr>
 				</thead>
 				<tbody>  
 					<?php
-						$i=1; 
+						$i=1;
+						$status_txt='';
 						foreach ($data_bank->result() as $x) {
+							if ($x->status=='1') {$status_txt='<span class="badge bg-success">Active</span>';}else{$status_txt='<span class="badge bg-danger">Not Active</span>';}
 							echo'<tr>
 									<td>'.$i.'</td>
 									<td>'.$x->bank_name.'</td>
 									<td>'.$x->bank_account.'</td>
+									<td>'.$status_txt.'</td>
 									<td>
 										<div class="btn-group btn-group-sm">
 											<a href="#modalView" class="btn btn-primary text-white tooltipnya" title="Lihat detail" data-bs-toggle="modal"
 												data-bs-id="'.$x->id.'"
 												data-bs-bank_name="'.$x->bank_name.'"
 												data-bs-bank_account="'.$x->bank_account.'"
+												data-bs-status="'.$x->status.'"
 											>
 												<i class="bi bi-eye"></i>
 											</a> 
@@ -53,15 +58,9 @@
 												data-bs-id="'.$x->id.'"
 												data-bs-bank_name="'.$x->bank_name.'"
 												data-bs-bank_account="'.$x->bank_account.'"
+												data-bs-status="'.$x->status.'"
 											>
 												<i class="bi bi-pencil-square"></i>
-											</a>
-											<a href="#modalHapus" class="btn btn-danger text-white tooltipnya" title="Hapus" data-bs-toggle="modal"
-												data-bs-id="'.$x->id.'"
-												data-bs-bank_name="'.$x->bank_name.'"
-												data-bs-bank_account="'.$x->bank_account.'"
-											>
-												<i class="bi bi-trash3"></i>
 											</a>
 										</div>
 									</td> 
@@ -69,6 +68,14 @@
 							$i++;
 						} 
 					?>
+					<!-- <a href="#modalHapus" class="btn btn-danger text-white tooltipnya" title="Hapus" data-bs-toggle="modal"
+						data-bs-id="'.$x->id.'"
+						data-bs-bank_name="'.$x->bank_name.'"
+						data-bs-bank_account="'.$x->bank_account.'"
+						data-bs-status="'.$x->status.'"
+					>
+						<i class="bi bi-trash3"></i>
+					</a> -->
 				</tbody>
 			</table>
 		</div>
@@ -87,20 +94,24 @@
 	        <div class="row row-cols-1 row-cols-md g-2">
 	        	<div class="col">
 	        		<div class="form-floating">
-						<input type="text" class="form-control bg-white" id="bank_name" name="bank_name" placeholder="Bank Name">
-						<label for="bank">Bank Name</label>
-					</div>	
-				</div>
+								<input type="text" class="form-control bg-white" id="bank_name" name="bank_name" placeholder="Bank Name">
+								<label for="bank">Bank Name</label>
+							</div>	
+						</div>
 	        	<div class="col">
 	        		<div class="form-floating">
-						<input type="text" class="form-control bg-white" id="bank_account" name="bank_account" placeholder="Bank Account">
-						<label for="bank">Bank Account</label>
-					</div>
+								<input type="text" class="form-control bg-white" id="bank_account" name="bank_account" placeholder="Bank Account">
+								<label for="bank">Bank Account</label>
+							</div>
 	        	</div>
 	        </div>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="submit" class="btn btn-primary">Simpan</button>
+					<div class="form-check form-switch me-auto">
+					  <input class="form-check-input" type="checkbox" role="switch" id="status" name="status" onclick="fungsi_cek_add()">
+					  <label class="form-check-label" for="status">Non Active</label>
+					</div>
+	        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan</button>
 	      </div>
      	</form>
     </div>
@@ -123,14 +134,18 @@
 				</div>
         	</div>
         	<div class="col">
-				<div class="form-floating">
-					<input type="text" class="form-control bg-white" id="bank_account" placeholder="Bank Account" readonly>
-					<label for="bank_account">Bank Account</label>
-				</div>
-			</div>
+						<div class="form-floating">
+							<input type="text" class="form-control bg-white" id="bank_account" placeholder="Bank Account" readonly>
+							<label for="bank_account">Bank Account</label>
+						</div>
+					</div>
         </div>
       </div>
       <div class="modal-footer">
+				<div class="form-check form-switch me-auto">
+				  <input class="form-check-input" type="checkbox" role="switch" id="status_view" disabled>
+				  <label class="form-check-label" for="status_view">Status Active</label>
+				</div>
         <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
       </div>
     </div>
@@ -163,6 +178,10 @@
 	        </div>
 	      </div>
 	      <div class="modal-footer">
+					<div class="form-check form-switch me-auto">
+					  <input class="form-check-input" type="checkbox" role="switch" id="status_edit" name="status_edit" onclick="fungsi_cek()">
+					  <label class="form-check-label" for="status_edit"></label>
+					</div>
 	        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan</button>
 	      </div>
      	</form>
@@ -206,8 +225,16 @@
 			var link = $('#selek').val();
 			var base_url = '<?= base_url();?>master_data/';
 			location.href = base_url+link;
-		});		
+		});
 	});
+		function fungsi_cek_add(){
+	  	var status_check = document.getElementById('status');
+			if (status_check.checked==true) {
+				$('label[for="status"]').html('Active');
+			}else{
+		  	$('label[for="status"]').html('Non-Active');
+			}
+	  }	
 	 	
 	var modalView = document.getElementById('modalView')
 	modalView.addEventListener('show.bs.modal', function (event) {
@@ -215,14 +242,24 @@
 
 	  var bank_name	   = button.getAttribute('data-bs-bank_name')
 	  var bank_account = button.getAttribute('data-bs-bank_account')
+	  var status = button.getAttribute('data-bs-status')
 
 	  var modalTitle = modalView.querySelector('.modal-title')
 	  var bankInput = modalView.querySelector('.modal-body input#bank_name')
 	  var bankAccountInput = modalView.querySelector('.modal-body input#bank_account')
+	  var statusSwitch = modalView.querySelector('.modal-body input#status')
 
 	  modalTitle.textContent = 'Detail ' + bank_name
 	  bankInput.value = bank_name
 	  bankAccountInput.value = bank_account
+	  if (status=='1') {
+	  	$('#status_view').attr('checked', true);
+			$('label[for="status_view"]').html('Active');
+	  }
+	  if (status=='0') {
+	  	$('#status_view').attr('checked', false);
+	  	$('label[for="status_view"]').html('Non-Active');
+	  }
 	})
 	
 	var modalEdit = document.getElementById('modalEdit')
@@ -232,16 +269,27 @@
 	  var id = button.getAttribute('data-bs-id')
 	  var bank_name	   = button.getAttribute('data-bs-bank_name')
 	  var bank_account = button.getAttribute('data-bs-bank_account')
+	  var status = button.getAttribute('data-bs-status')
 	
 	  var modalTitle = modalEdit.querySelector('.modal-title')
 	  var idInput = modalEdit.querySelector('.modal-body input#id_edit')
 	  var bankInput = modalEdit.querySelector('.modal-body input#bank_name_edit')
 	  var bankAccountInput = modalEdit.querySelector('.modal-body input#bank_account_edit')
+	  var statusSwitch = modalView.querySelector('.modal-body input#status')
 
 	  modalTitle.textContent = 'Edit ' + bank_name
 	  idInput.value = id
 	  bankInput.value = bank_name 
 	  bankAccountInput.value = bank_account
+
+	  if (status=='1') {
+	  	$('#status_edit').attr('checked', true);
+			$('label[for="status_edit"]').html('Active');
+	  }
+	  if (status=='0') {
+	  	$('#status_edit').attr('checked', false);
+	  	$('label[for="status_edit"]').html('Non-Active');
+	  }
 	});
 	
 	var modalHapus = document.getElementById('modalHapus')
@@ -257,4 +305,13 @@
 	  modalTitle.textContent = 'Hapus ' + bank + '?'
 	  bankInput.value = id
 	})
+
+	function fungsi_cek(){
+  	var status_check = document.getElementById('status_edit');
+		if (status_check.checked==true) {
+			$('label[for="status_edit"]').html('Active');
+		}else{
+	  	$('label[for="status_edit"]').html('Non-Active');
+		}
+  }
 </script>

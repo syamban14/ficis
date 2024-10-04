@@ -24,8 +24,9 @@ div#main.blur{
     z-index: 1081;
 }
 .menu-staff.on{
-    background: rgba(255,255,255,0.8);
-    height: 350px;
+    background: rgba(0,0,0,0.5);
+    height: 100%;
+    border-top: 1px rgba(0,0,0,0.3) solid;
 }
 .menu-staff .btn-floating-menu{
     padding: 15px;
@@ -148,8 +149,15 @@ div#main.blur{
 #dataInvoicePenjualan .dropdown-menu.show{
     display: flex;
 }
+#dataInvoicePenjualan .dropdown-menu.show > li {
+    width: 50%;
+    text-align: center;
+}
 #dataInvoicePenjualan .dropdown-menu.show li a{
     padding: 5px!important;
+}
+.back-layer > div > a:not(first-child) {
+    margin-left: 5px;
 }
 @media (max-width: 991px){
     .dropdown-menu[aria-labelledby="dropdownMenuNotif"]{

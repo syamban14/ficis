@@ -77,7 +77,7 @@ $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => '',
+	'password' => '', //base64_decode('dDRueTRwNGswZjQ='),
 	'port'     => '3306',
 	'database' => 'db_finance',
 	'dbdriver' => 'mysqli',
@@ -97,9 +97,9 @@ $db['default'] = array(
 );
 $db['db2'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '10.2.3.33',
 	'username' => 'root',
-	'password' => '',
+	'password' => base64_decode('dDRueTRwNGswZjQ='),
 	'port'     => '3306',
 	'database' => 'hris',
 	'dbdriver' => 'mysqli',
@@ -119,9 +119,9 @@ $db['db2'] = array(
 );
 $db['db3'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '10.2.3.33',
 	'username' => 'root',
-	'password' => '',
+	'password' => base64_decode('dDRueTRwNGswZjQ='),
 	'port'     => '3306',
 	'database' => 'ims',
 	'dbdriver' => 'mysqli',
@@ -141,9 +141,9 @@ $db['db3'] = array(
 );
 $db['db4'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '10.2.3.33',
 	'username' => 'root',
-	'password' => '',
+	'password' => base64_decode('dDRueTRwNGswZjQ='),
 	'port'     => '3306',
 	'database' => 'test_bcspurchase',
 	'dbdriver' => 'mysqli',

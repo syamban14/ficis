@@ -106,12 +106,12 @@
 	        	</div>
 	        	<div class="col">
 	        		<div class="form-floating"> 
-						<select class="form-control" id="status" name="status">
-							<option value="Y">aktif</option>
-							<option value="N">nonaktif</option> 
-						</select>
-						<label for="status">Status</label>
-					</div>
+								<select class="form-control" id="status" name="status">
+									<option value="Y">aktif</option>
+									<option value="N">nonaktif</option> 
+								</select>
+								<label for="status">Status</label>
+							</div>
 	        	</div>
 	        </div>
 	      </div>

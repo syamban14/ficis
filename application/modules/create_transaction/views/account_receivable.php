@@ -15,6 +15,9 @@
   <li class="nav-item" role="presentation">
     <button class="nav-link active" id="closeinvoice-tab" data-bs-toggle="tab" data-bs-target="#closeinvoice" type="button" role="tab" aria-controls="closeinvoice" aria-selected="true">Close Invoice</button>
   </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" href="<?= base_url();?>create_transaction/ar_correction">AR Correction</a>
+  </li>
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active p-3 bg-white border" id="closeinvoice" role="tabpanel" aria-labelledby="closeinvoice-tab">
@@ -25,7 +28,7 @@
                     <?php
                         foreach ($data_invoice_penjualan->result() as $x) {
                     ?>
-                        <option value="<?= $x->kode_kustomer?>" data-subtext="<?= $x->kode_kustomer?>" data-token="<?= $x->kode_kustomer?>"><?= $x->nama_kustomer?></option>
+                        <option value="<?= $x->inisial1?>" data-subtext="<?= $x->inisial1?>" data-token="<?= $x->inisial1?>"><?= $x->nama_kustomer?></option>
                     <?php
                         }
                     ?>
