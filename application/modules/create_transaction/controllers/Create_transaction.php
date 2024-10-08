@@ -765,7 +765,7 @@
 							</td>
 							<td style="text-align:center; width:39%;"></td>
 							<td style="text-align:center; width:25%;">
-								Cilegon, 21 Juni 2023<br><br><br><br><br><br><br><br><br>
+								Cilegon, '.date('d F Y').'<br><br><br><br><br><br><br><br><br>
 								<span style="text-decoration:underline;">FARJUNI SOFIYANTO</span><br>
 								Direktur Keuangan
 							</td>
