@@ -192,6 +192,14 @@
 			$this->load->view('ar_correction_result',$x);
 			$this->load->view('commons/footer');
 		}
+		// new function for sales advance
+		public function sales_advance()
+        {
+            $this->load->view('commons/header');
+            $this->load->view('sales_advance');
+            $this->load->view('commons/footer');
+        }
+
 		public function account_payable()
 		{
 			$val='AP';		
