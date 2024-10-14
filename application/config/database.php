@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '10.2.3.33',
 	'username' => 'root',
-	'password' => '', //base64_decode('dDRueTRwNGswZjQ='),
+	'password' => base64_decode('dDRueTRwNGswZjQ='), //base64_decode('dDRueTRwNGswZjQ='),
 	'port'     => '3306',
 	'database' => 'db_finance',
 	'dbdriver' => 'mysqli',
